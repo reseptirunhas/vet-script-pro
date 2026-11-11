@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VET-SCRIPT · Meja e-resep</title>
+  <link rel="stylesheet" href="app/style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>VET-SCRIPT</h1>
+      <p class="sub">Meja e-resep · MK Reseptir PPDH Universitas Hasanuddin · versi uji 0.1</p>
+    </div>
+    <div class="xp" id="xpBox">
+      <div class="lvl" id="lvlText">Level 1</div>
+      <div class="bar"><span id="xpBar"></span></div>
+      <div class="small" id="xpText">0 XP</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card" id="misiCard">
+      <div class="tag" id="misiTag"></div>
+      <h2 id="misiJudul"></h2>
+      <p id="misiNarasi"></p>
+      <p class="small" id="misiPasien"></p>
+    </section>
+
+    <section class="card">
+      <h2>Langkah 1 · SCRIPT</h2>
+      <p class="small">Isi keenam langkah secara berurutan. Meja resep terbuka setelah semuanya terisi.</p>
+      <div class="script" id="scriptBox"></div>
+      <button id="btnBuka" disabled>Buka meja resep</button>
+    </section>
+
+    <section class="card locked" id="resepCard">
+      <h2>Langkah 2 · VET: tulis resep</h2>
+      <div id="rows"></div>
+      <button class="ghost" id="btnTambah">+ Tambah R/</button>
+      <div class="yakin">
+        <label for="yakin">Seberapa yakin resep ini benar?</label>
+        <select id="yakin">
+          <option value="1">1 · menebak</option>
+          <option value="2">2</option>
+          <option value="3" selected>3 · cukup yakin</option>
+          <option value="4">4</option>
+          <option value="5">5 · sangat yakin</option>
+        </select>
+      </div>
+      <button id="btnPeriksa">Periksa resep</button>
+      <div id="hasil"></div>
+    </section>
+  </main>
+
+  <footer>
+    Ilustrasi uji coba. Data formularium wajib diverifikasi tim sebelum dipakai. XP tidak masuk nilai akhir.
+    Kode: MIT · Konten: CC BY-SA 4.0
+  </footer>
+
+  <script src="data/formularium.js"></script>
+  <script src="data/misi.js"></script>
+  <script src="app/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+id,nama_generik,sediaan,rute,spesies,dosis_min_mg_per_kg,dosis_maks_mg_per_kg,frekuensi,catatan,kontraindikasi_spesies,alasan_kontraindikasi,akibat_bila_salah,waktu_henti_daging_hari,waktu_henti_susu_hari,rujukan,diverifikasi_oleh
+nac,N-asetilsistein,Injeksi 200 mg/ml,i.v.,kucing,140,140,dosis awal lalu 70 mg/kg tiap 6 jam,,,,,,,[isi rujukan],[nama verifikator 1]; [nama verifikator 2]
+parasetamol,Parasetamol,Tablet 500 mg,p.o.,anjing,10,15,tiap 8-12 jam,hati-hati gangguan hati,kucing,defisiensi glukuronidasi: methemoglobinemia dan cedera hati,mukosa kecokelatan; sesak; wajah bengkak,,,[isi rujukan],[nama verifikator 1]; [nama verifikator 2]
