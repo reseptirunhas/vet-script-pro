@@ -3,59 +3,152 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VET-SCRIPT · Meja e-resep</title>
+  <title>VET-SCRIPT · Klinik Saya</title>
   <link rel="stylesheet" href="app/style.css">
 </head>
 <body>
   <header class="top">
-    <div>
-      <h1>VET-SCRIPT</h1>
-      <p class="sub">Meja e-resep · MK Reseptir PPDH Universitas Hasanuddin · versi uji 0.1</p>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">R/</div>
+      <div>
+        <h1>VET-SCRIPT</h1>
+        <p class="sub">MK Reseptir · PPDH Universitas Hasanuddin · versi uji 0.3</p>
+      </div>
     </div>
-    <div class="xp" id="xpBox">
-      <div class="lvl" id="lvlText">Level 1</div>
-      <div class="bar"><span id="xpBar"></span></div>
-      <div class="small" id="xpText">0 XP</div>
+    <div class="klinik">
+      <button class="klinikNama" id="klinikNama" title="Ubah nama klinik"></button>
+      <div class="stat">
+        <span id="bintang" class="bintang" title="Reputasi klinik"></span>
+        <span id="izin" class="izin" title="Izin praktik"></span>
+      </div>
+      <div class="xp">
+        <span id="lvlText" class="lvl">Level 1</span>
+        <div class="bar" role="progressbar" aria-label="XP menuju level berikutnya"><span id="xpBar"></span></div>
+        <span id="xpText" class="xpText">0 XP</span>
+      </div>
     </div>
   </header>
 
+  <nav class="tabs" role="tablist" aria-label="Menu utama">
+    <button role="tab" data-view="antrean" aria-selected="true">Antrean pasien</button>
+    <button role="tab" data-view="meja" aria-selected="false">Meja resep</button>
+    <button role="tab" data-view="formularium" aria-selected="false">Formularium</button>
+    <button role="tab" data-view="kemajuan" aria-selected="false">Kemajuan</button>
+  </nav>
+
   <main>
-    <section class="card" id="misiCard">
-      <div class="tag" id="misiTag"></div>
-      <h2 id="misiJudul"></h2>
-      <p id="misiNarasi"></p>
-      <p class="small" id="misiPasien"></p>
-    </section>
-
-    <section class="card">
-      <h2>Langkah 1 · SCRIPT</h2>
-      <p class="small">Isi keenam langkah secara berurutan. Meja resep terbuka setelah semuanya terisi.</p>
-      <div class="script" id="scriptBox"></div>
-      <button id="btnBuka" disabled>Buka meja resep</button>
-    </section>
-
-    <section class="card locked" id="resepCard">
-      <h2>Langkah 2 · VET: tulis resep</h2>
-      <div id="rows"></div>
-      <button class="ghost" id="btnTambah">+ Tambah R/</button>
-      <div class="yakin">
-        <label for="yakin">Seberapa yakin resep ini benar?</label>
-        <select id="yakin">
-          <option value="1">1 · menebak</option>
-          <option value="2">2</option>
-          <option value="3" selected>3 · cukup yakin</option>
-          <option value="4">4</option>
-          <option value="5">5 · sangat yakin</option>
-        </select>
+    <!-- ANTREAN -->
+    <section class="view" id="view-antrean">
+      <div class="viewHead">
+        <h2>Pasien hari ini</h2>
+        <p class="small" id="antreanRingkas"></p>
       </div>
-      <button id="btnPeriksa">Periksa resep</button>
-      <div id="hasil"></div>
+      <div class="antrean" id="antreanList"></div>
+    </section>
+
+    <!-- MEJA RESEP -->
+    <section class="view" id="view-meja" hidden>
+      <div class="meja">
+        <aside class="kasus card" id="kasusCard">
+          <div class="tag" id="misiTag"></div>
+          <h2 id="misiJudul"></h2>
+          <p id="misiNarasi"></p>
+          <dl class="pasien" id="misiPasien"></dl>
+          <div class="kasusAksi">
+            <button class="ghost" id="btnHint">Minta hint (−20 XP)</button>
+            <button class="ghost" id="btnLaci">Buka formularium</button>
+          </div>
+          <div id="hintBox"></div>
+        </aside>
+
+        <div class="kerja">
+          <section class="card" id="scriptCard">
+            <div class="cardHead">
+              <h2>Langkah 1 · SCRIPT</h2>
+              <span class="small" id="scriptHitung"></span>
+            </div>
+            <p class="small">Isi keenam langkah secara berurutan. Kertas resep terbuka setelah semuanya terisi. Dosis tidak perlu dihafal: buka formularium seperti dokter hewan di praktik.</p>
+            <div class="pills" id="pills" role="tablist" aria-label="Langkah SCRIPT"></div>
+            <div class="step" id="stepBox"></div>
+            <div class="stepNav">
+              <button class="ghost" id="btnPrev">Sebelumnya</button>
+              <button id="btnNext">Berikutnya</button>
+            </div>
+          </section>
+
+          <section class="card resep locked" id="resepCard">
+            <div class="cardHead">
+              <h2>Langkah 2 · Tulis resep</h2>
+              <span class="kunci small" id="kunciText">Terkunci sampai SCRIPT lengkap</span>
+            </div>
+            <div class="kertas">
+              <div class="kop">
+                <b id="kopKlinik"></b>
+                <span id="kopPasien"></span>
+              </div>
+              <div id="rows"></div>
+              <button class="ghost" id="btnTambah">+ Tambah R/</button>
+            </div>
+            <div class="yakin">
+              <span class="yakinLabel" id="yakinLabel">Seberapa yakin resep ini benar?</span>
+              <div class="yakinPilih" id="yakinPilih" role="radiogroup" aria-labelledby="yakinLabel"></div>
+            </div>
+            <button id="btnPeriksa" class="besar">Periksa resep</button>
+          </section>
+
+          <section class="card" id="hasilCard" hidden>
+            <div class="status" id="statusPasien"></div>
+            <div id="hasil"></div>
+            <div class="hasilAksi" id="hasilAksi"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMULARIUM -->
+    <section class="view" id="view-formularium" hidden>
+      <div class="viewHead">
+        <h2>Formularium</h2>
+        <p class="small">Draf 0.2, masih diverifikasi tim. Waktu henti hewan pangan: ikuti label produk. Selalu periksa spesies, sediaan, dan kontraindikasi.</p>
+      </div>
+      <div id="formHost"></div>
+    </section>
+
+    <!-- KEMAJUAN -->
+    <section class="view" id="view-kemajuan" hidden>
+      <div class="viewHead"><h2>Kemajuan saya</h2></div>
+      <div class="grid3" id="ringkasKemajuan"></div>
+      <div class="card">
+        <h3>Lencana kompetensi</h3>
+        <div class="lencana" id="lencanaList"></div>
+      </div>
+      <div class="card">
+        <h3>Riwayat pasien</h3>
+        <div id="riwayat"></div>
+      </div>
+      <div class="card">
+        <h3>Catatan "yakin tetapi salah"</h3>
+        <p class="small">Kesalahan yang dibuat dengan keyakinan tinggi paling berharga untuk dibahas saat Debrief.</p>
+        <div id="yakinSalah"></div>
+      </div>
+      <button class="ghost bahaya" id="btnReset">Hapus kemajuan di peramban ini</button>
     </section>
   </main>
 
+  <!-- Laci formularium (dibuka dari meja resep) -->
+  <div class="laci" id="laci" hidden>
+    <div class="laciIsi" role="dialog" aria-label="Formularium">
+      <div class="laciHead">
+        <h2>Formularium</h2>
+        <button class="ghost" id="btnTutupLaci">Tutup</button>
+      </div>
+      <div id="laciHost"></div>
+    </div>
+  </div>
+
   <footer>
-    Ilustrasi uji coba. Data formularium wajib diverifikasi tim sebelum dipakai. XP tidak masuk nilai akhir.
-    Kode: MIT · Konten: CC BY-SA 4.0
+    Ilustrasi uji coba. Kasus dan data formularium masih draf dan wajib diverifikasi tim sebelum dipakai. XP, reputasi, dan lencana tidak masuk nilai akhir. Kemajuan hanya tersimpan di peramban ini.
+    <br>Kode: MIT · Konten: CC BY-SA 4.0
   </footer>
 
   <script src="data/formularium.js"></script>

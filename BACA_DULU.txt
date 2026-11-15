@@ -1,0 +1,13 @@
+UPDATE VET-SCRIPT v0.3 (antarmuka baru "Klinik Saya")
+
+Cara pasang di GitHub (repo reseptirunhas/vet-script-pro):
+1. Buka repo, klik "Add file" > "Upload files".
+2. Seret SEMUA isi folder ini (index.html, folder app, data, formularium, rubrik).
+3. Klik "Commit changes". Situs berubah dalam 1-2 menit.
+
+Berkas yang diganti: index.html, app/app.js, app/style.css, data/misi.js,
+data/formularium.js, formularium/*.xlsx, rubrik/aturan_gamifikasi.md
+
+PERHATIAN: data/misi.js ikut diganti (sekarang 8 kasus). Bila Bapak sudah
+menambah kasus sendiri di GitHub, salin dulu kasus itu sebelum mengunggah.
+Semua kasus dan formularium masih DRAF dan wajib diverifikasi tim.
